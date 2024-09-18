@@ -1,8 +1,20 @@
 
 {
+    
     "version": "0.2.0",
     "configurations": [
-
+        {
+            "name": "Sandboxes Project",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-sandbox-Sandboxes",
+            "program": "${workspaceFolder}/sandbox/Sandboxes/bin/Debug/net8.0/Sandboxes.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/sandbox/Sandboxes",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "stopAtEntry": false
+        },
         {
             "name": "Sandbox Project",
             "type": "coreclr",
