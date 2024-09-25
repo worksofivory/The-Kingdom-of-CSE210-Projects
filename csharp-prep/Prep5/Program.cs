@@ -24,6 +24,7 @@ class Program
         static void DisplayResult(string name, int number){
             System.Console.WriteLine($"{name}, the square of your favorite number is {number}");
         }
+        DisplayWelcome();
         DisplayResult(PromptUserName(), SquareNumber(PromptUserNumber()));
     }
 }
