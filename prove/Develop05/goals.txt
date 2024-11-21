@@ -1,0 +1,3 @@
+Simple^tacos^eat some tacos^5^False
+Eternal^scriptures^read scriptures^5^False^0
+Checklist^draw^draw pictures^5^True^4^4^20
