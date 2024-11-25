@@ -35,7 +35,7 @@ class Program
                 if(goal.getDone()){totalPoints += goal.getPoints();}}
             
             foreach(EternalGoal goal in eternalGoals){
-                if(goal.getDone()){totalPoints += goal.getPoints()*goal.getTimesCompleted();}}
+                totalPoints += goal.getPoints()*goal.getTimesCompleted();}
             
             foreach(ChecklistGoal goal in checklistGoals){
                 totalPoints += goal.getPoints()*goal.getCompletions();
