@@ -11,11 +11,16 @@ public abstract class Item{
         _buffValue = buffValue;
         _goldValue = goldValue;
     }
-
+    public string GetItemName(){
+        return _itemName;
+    }
     public int GetGoldValue(){
         return _goldValue;
     }
-    public virtual int ApplyBuff(string target){
+    public void ActivateEffect(){
+        _activated = true;
+    }
+    public virtual int ApplyBuff(){
         return _buffValue;
     }
     public virtual void DisplayDetails(){

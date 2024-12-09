@@ -10,12 +10,25 @@ public class Potion:Item{
             _used = true;
         }
     }
-    public override int ApplyBuff(string target)
+    public void addDuration(){
+        _currentUse +=1;
+    }
+    public override int ApplyBuff()
     {
-        return _buffValue;
+        if(_used){
+            return 0;
+        }else{
+            return _buffValue;
+        }
+        
     }
     public override void DisplayDetails()
     {
+        if(_buffTarget.ToLower() == "Health"){
+            System.Console.WriteLine($"POTION\n{_itemName} Adds +{_buffValue} to {_buffTarget}\nValue:{_goldValue}");
+        }else{
+            System.Console.WriteLine($"POTION\n{_itemName} Adds +{_buffValue} to {_buffTarget} for {_duration} turn(s)\nValue:{_goldValue}");
+        }
         
     }
 }

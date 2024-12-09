@@ -10,6 +10,9 @@ public class Weapon{
         _weaponDamage = dmg;
         _atkModifier = mod;
     }
+    public string GetWeaponName(){
+        return _weaponName;
+    }
     public string GetDamageType(){
         return _damageType;
     }
