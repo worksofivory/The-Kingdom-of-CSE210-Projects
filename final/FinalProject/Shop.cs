@@ -21,14 +21,20 @@ public class Shop{
             return null;
         }        
     }
+    public Inventory GetShopInventory(){
+        return _shopInventory;
+    }
     public int BuyPotion(Potion potion){
-        _shopInventory.AddPotion(potion);
         _shopGold -= potion.GetGoldValue();
         return potion.GetGoldValue();
     }
-    public int buyUpgrade(Upgrade upgrade){
-        _shopInventory.AddUpgrade(upgrade);
+    public int BuyUpgrade(Upgrade upgrade){
         _shopGold -= upgrade.GetGoldValue();
         return upgrade.GetGoldValue();
+    }
+    public void DisplayShop(){
+        _shopInventory.ListInventoryPotions();
+        _shopInventory.ListInventoryUpgrades();
+        System.Console.WriteLine($"Shop's Gold: {_shopGold}");
     }
 }

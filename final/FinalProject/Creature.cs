@@ -7,6 +7,7 @@ public abstract class Creature{
     protected Weapon _weapon;
     protected Inventory _inventory;
     public Creature(int hp, int armor, int gold, int armorClass, Weapon weapon){
+        _inventory = new Inventory(new List<Potion>(), new List<Upgrade>());
         _maxHP = hp;
         _currentHP = hp;
         _armor = armor;
@@ -25,9 +26,6 @@ public abstract class Creature{
     }
     public int GetCurrentHealth(){
         return _currentHP;
-    }
-    public void UpdateInventory(Inventory inv){
-        _inventory = inv;
     }
     public Inventory GetCreatureInventory(){
         return _inventory;

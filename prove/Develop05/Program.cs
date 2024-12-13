@@ -230,7 +230,7 @@ class Program
             }
             if(menuInput == 6){runMenu = false;}}
     }
-    public static void displayMenu(List<string> menu){
+    private static void displayMenu(List<string> menu){
         int spot = 0;
         foreach(string item in menu){
             spot +=1;

@@ -5,13 +5,19 @@ public class Potion:Item{
     public Potion(string name, string target, int buffValue, int goldValue, int duration) :base(name, target, buffValue, goldValue){
         _duration = duration;
     }
-    public void EndEffect(){
+    public void CheckEffectDuration(){
         if(_currentUse == _duration){
             _used = true;
         }
     }
-    public void addDuration(){
+    public int GetDuration(){
+        return _duration;
+    }
+    public void AddDuration(){
         _currentUse +=1;
+    }
+    public bool CheckUsed(){
+        return _used;
     }
     public override int ApplyBuff()
     {

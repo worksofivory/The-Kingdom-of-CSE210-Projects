@@ -1,5 +1,7 @@
 public class Upgrade:Item{
-    public Upgrade(string name, string target, int buffValue, int goldValue):base(name, target, buffValue, goldValue){}
+    public Upgrade(string name, string target, int buffValue, int goldValue):base(name, target, buffValue, goldValue){
+        _activated = true;
+    }
     public override int ApplyBuff()
     {
         if(_activated){

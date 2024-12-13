@@ -20,6 +20,12 @@ public abstract class Item{
     public void ActivateEffect(){
         _activated = true;
     }
+    public bool GetActive(){
+        return _activated;
+    }
+    public string GetTarget(){
+        return _buffTarget;
+    }
     public virtual int ApplyBuff(){
         return _buffValue;
     }
