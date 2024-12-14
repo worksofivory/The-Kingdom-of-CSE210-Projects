@@ -10,17 +10,17 @@ class Program
         };
         Inventory emptyInventory = new Inventory(emptyPotions, emptyUpgrades);
         List<Weapon> weapons = new List<Weapon>{
-            new Weapon("Club", "Bludgeoning", 4, 3),
-            new Weapon("Greatsword", "Slashing", 8, 1),
-            new Weapon("Spear", "Piercing", 6, 2),
-            new Weapon("Battleaxe", "Slashing", 6, 2),
-            new Weapon("Mace", "Bludgeoning", 4, 3)
+            new Weapon("Club", "Bludgeoning", 12, 3),
+            new Weapon("Greatsword", "Slashing", 16, 1),
+            new Weapon("Spear", "Piercing", 18, 2),
+            new Weapon("Battleaxe", "Slashing", 18, 2),
+            new Weapon("Mace", "Bludgeoning", 12, 3)
         };
         List<Player> players = new List<Player>{
-            new Player(100, 4, 10, 15, new Weapon("Greatsword", "Slashing", 10, 1), "BLANK", "Dragonborn", 2, 3),
-            new Player(90, 2, 15, 12, new Weapon("Mace", "Bludgeoning", 4, 3), "BLANK", "Human", 4, 1),
-            new Player(80, 1, 20, 18, new Weapon("Spear", "Piercing", 6, 2), "BLANK", "Elf", 4, 1),
-            new Player(110, 3, 5, 16, new Weapon("Battleaxe", "Slashing", 6, 2), "BLANK", "Dwarf", 3, 2)
+            new Player(50, 8, 10, 15, new Weapon("Greatsword", "Slashing", 10, 1), "BLANK", "Dragonborn", 2, 3),
+            new Player(45, 4, 15, 12, new Weapon("Mace", "Bludgeoning", 4, 3), "BLANK", "Human", 4, 1),
+            new Player(40, 2, 20, 18, new Weapon("Spear", "Piercing", 6, 2), "BLANK", "Elf", 4, 1),
+            new Player(55, 6, 5, 16, new Weapon("Battleaxe", "Slashing", 6, 2), "BLANK", "Dwarf", 3, 2)
         };
         List<Enemy> enemies = new List<Enemy>{
             new Enemy(20, 5, 10, 12, new Weapon("Hands", "Bludgeoning", 2, 1), "Goblin", "Piercing", "Bludgeoning", false),
@@ -510,6 +510,9 @@ class Program
                         string chosenUpgrade = System.Console.ReadLine();
                         player.AddPlayerUpgrade(shop.SellUpgrade(chosenUpgrade, player.GetGold()));
                         buyInput = 0;
+                    }if(buyInput > 3 || buyInput < 1 && buyInput != 0){
+                        System.Console.WriteLine("That's not a choice, try again!");
+                        buyInput = 0;
                     }
                 }
             }
@@ -519,7 +522,7 @@ class Program
                 while(sellInput!=3){
                     foreach(string item in sellChoices){
                     System.Console.WriteLine($"{item}");}
-                    buyInput = int.Parse(System.Console.ReadLine());
+                    sellInput = int.Parse(System.Console.ReadLine());
                     if(sellInput ==1){
                         System.Console.WriteLine("***SHOP INVENTORY");
                         shopInv.ListInventoryPotions();
@@ -528,7 +531,7 @@ class Program
                         System.Console.WriteLine("Type the name of the potion you want to sell.");
                         string chosenPotion = System.Console.ReadLine();
                         player.AddGold(shop.BuyPotion(player.GetCreatureInventory().RemoveInventoryPotion(chosenPotion)));
-                        buyInput = 0;
+                        sellInput = 0;
                     }
                     if(sellInput ==2){
                         System.Console.WriteLine("***SHOP INVENTORY");
@@ -538,10 +541,17 @@ class Program
                         System.Console.WriteLine("Type the name of the upgrade you want to sell.");
                         string chosenUpgrade = System.Console.ReadLine();
                         player.AddGold(shop.BuyUpgrade(player.GetCreatureInventory().RemoveInventoryUpgrade(chosenUpgrade)));
-                        buyInput = 0;
+                        sellInput = 0;
+                    }
+                    if(sellInput > 3 || sellInput < 1 && sellInput != 0){
+                        System.Console.WriteLine("That's not a choice, try again!");
+                        sellInput = 0;
                     }
                     }
-            }
+            }if(menuInput > 3 || menuInput < 1 && menuInput != 0){
+                        System.Console.WriteLine("That's not a choice, try again!");
+                        menuInput = 0;
+                    }
             }
     }
 }
