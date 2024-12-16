@@ -107,7 +107,7 @@ public class Player:Creature{
     }
     public override void DisplayCreatureInfo()
     {
-        System.Console.WriteLine($"You are {_name}, a {_race} wielding a +{_weapon.GetModifier()} {_weapon.GetWeaponName()}\nYou have {_maxHP}/{_currentHP} health with {_armor} armor.");
+        System.Console.WriteLine($"You are {_name}, a {_race} wielding a +{_weapon.GetModifier()} {_weapon.GetWeaponName()}\nYou have {_currentHP}/{_maxHP} health with {_armor} armor.");
     }
     public override int RemoveGold(int amount)
     {

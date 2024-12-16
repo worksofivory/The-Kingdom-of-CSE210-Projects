@@ -4,11 +4,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<Potion> emptyPotions = new List<Potion>{
-        };
-        List<Upgrade> emptyUpgrades = new List<Upgrade>{
-        };
-        Inventory emptyInventory = new Inventory(emptyPotions, emptyUpgrades);
         List<Weapon> weapons = new List<Weapon>{
             new Weapon("Club", "Bludgeoning", 12, 3),
             new Weapon("Greatsword", "Slashing", 16, 1),
@@ -50,14 +45,14 @@ class Program
             new Upgrade("Advanced Armor Improvement", "Armor", 10, 20),
             new Upgrade("Major Attack Gauntlet", "InnateBuff", 6, 20)
         };
-        Inventory shopInventory1 = new Inventory(emptyPotions, emptyUpgrades);
+        Inventory shopInventory1 = new Inventory();
         foreach(Potion potion in basicPotions){
             shopInventory1.AddPotion(potion);
         }
         foreach(Upgrade upgrade in basicUpgrades){
             shopInventory1.AddUpgrade(upgrade);
         }
-        Inventory shopInventory2 = new Inventory(emptyPotions, emptyUpgrades);
+        Inventory shopInventory2 = new Inventory();
         foreach(Potion potion in strongPotions){
             shopInventory2.AddPotion(potion);
         }
@@ -107,7 +102,8 @@ class Program
             playerKilled = HandleEncounter(enemies, weapons, basicPotions, basicUpgrades, player1);
             playerKilled = HandleEncounter(enemies, weapons, basicPotions, basicUpgrades, player1);
             playerKilled = HandleEncounter(enemies, weapons, basicPotions, basicUpgrades, player1);
-            System.Console.WriteLine("You leave the first floor, exhausted from your fights.\nGrateful for your assistance, the villagers offer you a bed, and access to their first shop.  You decide to pay a visit before heading to bed for the night.");
+            Console.Clear();
+            System.Console.WriteLine("You leave the first floor, exhausted from your fights.\nGrateful for your assistance, the villagers offer you a bed, and access to their first shop.\nYou decide to pay a visit before heading to bed for the night.");
             System.Console.WriteLine("(HIT ENTER TO CONTINUE)");
             System.Console.ReadLine();
             HandleShop(shop1, player1);
@@ -120,7 +116,7 @@ class Program
             System.Console.WriteLine(".");
             Thread.Sleep(1000);
             Console.Clear();
-            System.Console.WriteLine("As you wake, you find yourself still somewhat tired.  Your sleep was not as restful as you'd hoped, plagued by nightmares you assume planted by Azog.");
+            System.Console.WriteLine("As you wake, you find yourself still somewhat tired.  Your sleep was not as restful as you'd hoped.\nYour sleep was plagued by nightmares you assume planted by Azog.");
             Thread.Sleep(1000);
             System.Console.WriteLine("Nevertheless, you have a job to do, and you make your way to the second floor of the tower.");
             System.Console.WriteLine("(HIT ENTER TO CONTINUE)");
@@ -176,6 +172,8 @@ class Program
             System.Console.WriteLine("You barely manage to escape the tower as it collapses, now devoid of the lich's power.");
             Thread.Sleep(1000);
             System.Console.WriteLine("You partake in a glorious feast with the villagers to celebrate your victory.  They ask you to stay, but you insist that you have others to defend as you leave a hero.  You smile, satisfied with the service you were able to offer.");
+            System.Console.WriteLine("(HIT ENTER TO CONTINUE)");
+            System.Console.ReadLine();
             Console.Clear();
             System.Console.WriteLine("YOU WON!!\nThank you for playing! :)");
         }
@@ -194,17 +192,20 @@ class Program
             System.Console.WriteLine($"***You successfully land a blow on [{enemy.GetType()}]!");
             enemy.TakeDamage(damageTaken);
             System.Console.WriteLine($">The [{enemy.GetEnemyType()}] takes {damageTaken} damage!");
-            Thread.Sleep(1000);
+            System.Console.WriteLine("(Hit Enter to continue)");
+            Console.ReadLine();
         }
         else if(dice == 20){
             System.Console.WriteLine("!!!CRITICAL HIT!!!");
             enemy.TakeDamage(damageTaken*2);
             System.Console.WriteLine($">The [{enemy.GetEnemyType()}] takes {damageTaken*2} damage!!!");
-            Thread.Sleep(1000);
+            System.Console.WriteLine("(Hit Enter to continue)");
+            Console.ReadLine();
         }
         else{
             System.Console.WriteLine("***The enemy swiftly dodges...");
-            Thread.Sleep(1000);
+            System.Console.WriteLine("(Hit Enter to continue)");
+            Console.ReadLine();
         }
     }
     private static void HandleEnemyAttack(Player player, Enemy enemy, bool blocked){
@@ -224,21 +225,22 @@ class Program
         }
         if(totalRoll >= enemy.GetArmorClass()){
             System.Console.WriteLine($"***You fail to avoid the attack...");
-            Thread.Sleep(1000);
             player.TakeDamage(damageTaken);
             System.Console.WriteLine($">You take {damageTaken} damage!");
-            Thread.Sleep(1000);
+            System.Console.WriteLine("(Hit Enter to continue)");
+            Console.ReadLine();
         }
         else if(dice == 20){
             System.Console.WriteLine("!!!CRITICAL HIT!!!");
-            Thread.Sleep(1000);
             player.TakeDamage(damageTaken*2);
             System.Console.WriteLine($">You take {damageTaken*2} damage!!!");
-            Thread.Sleep(1000);
+            System.Console.WriteLine("(Hit Enter to continue)");
+            Console.ReadLine();
         }
         else{
             System.Console.WriteLine("***The enemy fails to hit you!");
-            Thread.Sleep(1000);
+            System.Console.WriteLine("(Hit Enter to continue)");
+            Console.ReadLine();
         }
     }
     private static void HandleInventory(Inventory inventory){
@@ -483,33 +485,55 @@ class Program
             foreach(string item in shopChoices){
             System.Console.WriteLine($"{item}");}
             System.Console.WriteLine("What would you like to do?");
-            menuInput = int.Parse(System.Console.ReadLine());
+            string stringMenuInput = System.Console.ReadLine();
+            try{
+                menuInput = int.Parse(stringMenuInput);
+            }
+            catch (FormatException){
+                Console.WriteLine("Not a valid input, try one of the offered options.");
+            }
             if(menuInput == 1){
                 Console.Clear();
                 shop.DisplayShop();
                 while(buyInput!=3){
                     foreach(string item in buyChoices){
                     System.Console.WriteLine($"{item}");}
-                    buyInput = int.Parse(System.Console.ReadLine());
+                    string stringBuyInput = System.Console.ReadLine();
+                    try{
+                        buyInput = int.Parse(stringBuyInput);
+                    }
+                    catch (FormatException){
+                        Console.WriteLine("Not a valid input, try one of the offered options.");
+                    }
                     if(buyInput == 1){
                         System.Console.WriteLine("***SHOP INVENTORY");
                         shopInv.ListInventoryPotions();
                         System.Console.WriteLine("***PLAYER INVENTORY");
                         player.GetCreatureInventory().ListInventoryPotions();
-                        System.Console.WriteLine("Type the name of the upgrade you want to buy.\n***PLEASE NOTE YOU CANNOT BUY DUPLLICATES OF WHAT YOU ALREADY HAVE, YOU WILL LOSE YOUR GOLD AND GAIN NOTHING.");
+                        System.Console.WriteLine($"***Player Gold: {player.GetGold()}");
+                        System.Console.WriteLine("Type the name of the upgrade you want to buy.(Type BACK to return)\n***PLEASE NOTE YOU CANNOT BUY DUPLLICATES OF WHAT YOU ALREADY HAVE, YOU WILL LOSE YOUR GOLD AND GAIN NOTHING.");
                         string chosenPotion = System.Console.ReadLine();
-                        player.AddPlayerPotion(shop.SellPotion(chosenPotion, player.GetGold()));
-                        buyInput = 0;
+                        if(chosenPotion.ToLower() == "back"){
+                            buyInput = 0;
+                        }else{
+                            player.AddPlayerPotion(shop.SellPotion(chosenPotion, player.GetGold()));
+                            buyInput = 0;
+                        }
                     }
                     if(buyInput == 2){
                         System.Console.WriteLine("***SHOP INVENTORY");
                         shopInv.ListInventoryUpgrades();
                         System.Console.WriteLine("***PLAYER INVENTORY");
                         player.GetCreatureInventory().ListInventoryUpgrades();
-                        System.Console.WriteLine("Type the name of the upgrade you want to buy.\n***PLEASE NOTE YOU CANNOT BUY DUPLLICATES OF WHAT YOU ALREADY HAVE, YOU WILL LOSE YOUR GOLD AND GAIN NOTHING.");
+                        System.Console.WriteLine($"***Player Gold: {player.GetGold()}");
+                        System.Console.WriteLine("Type the name of the upgrade you want to buy.(Type BACK to return)\n***PLEASE NOTE YOU CANNOT BUY DUPLLICATES OF WHAT YOU ALREADY HAVE, YOU WILL LOSE YOUR GOLD AND GAIN NOTHING.");
                         string chosenUpgrade = System.Console.ReadLine();
-                        player.AddPlayerUpgrade(shop.SellUpgrade(chosenUpgrade, player.GetGold()));
-                        buyInput = 0;
+                        if(chosenUpgrade.ToLower() == "back"){
+                            buyInput = 0;
+                        }else{
+                            player.AddPlayerUpgrade(shop.SellUpgrade(chosenUpgrade, player.GetGold()));
+                            buyInput = 0;
+                        }
                     }if(buyInput > 3 || buyInput < 1 && buyInput != 0){
                         System.Console.WriteLine("That's not a choice, try again!");
                         buyInput = 0;
@@ -522,33 +546,49 @@ class Program
                 while(sellInput!=3){
                     foreach(string item in sellChoices){
                     System.Console.WriteLine($"{item}");}
-                    sellInput = int.Parse(System.Console.ReadLine());
+                    string stringSellInput = System.Console.ReadLine();
+                    try{
+                        sellInput = int.Parse(stringSellInput);
+                    }
+                    catch (FormatException){
+                        Console.WriteLine("Not a valid input, try one of the offered options.");
+                    }
                     if(sellInput ==1){
                         System.Console.WriteLine("***SHOP INVENTORY");
                         shopInv.ListInventoryPotions();
                         System.Console.WriteLine("***PLAYER INVENTORY");
                         player.GetCreatureInventory().ListInventoryPotions();
-                        System.Console.WriteLine("Type the name of the potion you want to sell.");
+                        System.Console.WriteLine($"***Player Gold: {player.GetGold()}");
+                        System.Console.WriteLine("Type the name of the potion you want to sell.(Type BACK to return)");
                         string chosenPotion = System.Console.ReadLine();
-                        player.AddGold(shop.BuyPotion(player.GetCreatureInventory().RemoveInventoryPotion(chosenPotion)));
-                        sellInput = 0;
+                        if(chosenPotion.ToLower() == "back"){
+                            sellInput = 0;
+                        }else{
+                            player.AddGold(shop.BuyPotion(player.GetCreatureInventory().RemoveInventoryPotion(chosenPotion)));
+                            sellInput = 0;
+                        }
                     }
                     if(sellInput ==2){
                         System.Console.WriteLine("***SHOP INVENTORY");
                         shopInv.ListInventoryUpgrades();
                         System.Console.WriteLine("***PLAYER INVENTORY");
                         player.GetCreatureInventory().ListInventoryUpgrades();
-                        System.Console.WriteLine("Type the name of the upgrade you want to sell.");
+                        System.Console.WriteLine($"***Player Gold: {player.GetGold()}");
+                        System.Console.WriteLine("Type the name of the upgrade you want to sell. (Type BACK to return)");
                         string chosenUpgrade = System.Console.ReadLine();
-                        player.AddGold(shop.BuyUpgrade(player.GetCreatureInventory().RemoveInventoryUpgrade(chosenUpgrade)));
-                        sellInput = 0;
+                        if(chosenUpgrade.ToLower() == "back"){
+                            sellInput = 0;
+                        }else{
+                            player.AddGold(shop.BuyUpgrade(player.GetCreatureInventory().RemoveInventoryUpgrade(chosenUpgrade)));
+                            sellInput = 0;
+                        }
                     }
                     if(sellInput > 3 || sellInput < 1 && sellInput != 0){
                         System.Console.WriteLine("That's not a choice, try again!");
                         sellInput = 0;
                     }
                     }
-            }if(menuInput > 3 || menuInput < 1 && menuInput != 0){
+                    }if(menuInput > 3 || menuInput < 1 && menuInput != 0){
                         System.Console.WriteLine("That's not a choice, try again!");
                         menuInput = 0;
                     }

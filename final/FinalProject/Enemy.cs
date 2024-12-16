@@ -55,6 +55,6 @@ public class Enemy:Creature{
         return _goldHeld;
     }
     public override void DisplayCreatureInfo(){
-        System.Console.WriteLine($"{_enemyType}\nHealth: {_maxHP}/{_currentHP}\nWeapon: {_weapon.GetWeaponName()}\nWeakness: {_damageWeakness}  Resistance: {_damageResistance}");
+        System.Console.WriteLine($"{_enemyType}\nHealth: {_currentHP}/{_maxHP}\nWeapon: {_weapon.GetWeaponName()}\nWeakness: {_damageWeakness}  Resistance: {_damageResistance}");
     }
 }

@@ -6,6 +6,10 @@ public class Inventory{
       _potions = potions;
       _upgrades = upgrades;
      }
+     public Inventory(){
+         _potions =  new List<Potion>{};
+         _upgrades = new List<Upgrade>{};
+     }
      public void AddPotion(Potion potion){
       if (potion == null){
         System.Console.WriteLine("Error: Cannot add a null potion.");
@@ -38,16 +42,14 @@ public class Inventory{
       return _upgrades;
      }
      public Potion GetInventoryPotion(string name){
+        Potion elsePotion = new Potion("Blank", "Nothing", 0, 0, 0);
         foreach(Potion potion in _potions){
             if(potion.GetItemName().ToLower()==name.ToLower()){
                return potion;
-            }else{
-               System.Console.WriteLine("That's not available...");
-               return null;
             }
         }
         System.Console.WriteLine("That's not available...");
-        return null;
+        return elsePotion;
      }
      public Potion RemoveInventoryPotion(string name){
         foreach(Potion potion in _potions){
